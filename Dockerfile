@@ -27,7 +27,7 @@ RUN chown -R build:build /home
 USER build
 ENV SHELL /bin/bash
 ENV HOME /home/build
-VOLUME ["/B2G"]
+VOLUME ["/Volumes/src"]
 
 # Setup sshd
 USER root

@@ -10,8 +10,8 @@ RUN apt-get update -y && \
     apt-get install -y python python-dev openjdk-7-jdk wget libdbus-glib-1-dev libxt-dev unzip tree patch vim screen openssh-server subversion
 
 # Install latest nodejs
-RUN mkdir /nodejs && curl https://nodejs.org/dist/v0.12.6/node-v0.12.6-linux-x64.tar.gz | tar xvzf - -C /nodejs --strip-components=1
-ENV PATH $PATH:/nodejs/bin
+RUN mkdir /nodejs && curl https://nodejs.org/dist/v0.12.6/node-v0.12.6-linux-x64.tar.gz | tar xvzf - -C /nodejs --strip-components=1 && \
+    echo "export PATH=/nodejs/bin:\$PATH:" >> /etc/bash.bashrc
 
 # We need to use gcc-4.6 to build, set that as default.
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.7 1
@@ -24,13 +24,10 @@ RUN update-alternatives --set g++ "/usr/bin/g++-4.7"
 # Setup environment and build that sucka!
 RUN useradd -m build && echo 'build:build' |chpasswd
 RUN chown -R build:build /home
-USER build
 ENV SHELL /bin/bash
 ENV HOME /home/build
-VOLUME ["/Volumes/src"]
 
 # Setup sshd
-USER root
 RUN mkdir /var/run/sshd && \
     echo 'root:root' |chpasswd && \
     sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config && \

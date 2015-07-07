@@ -13,7 +13,7 @@ RUN apt-get update -y && \
 RUN mkdir /nodejs && curl https://nodejs.org/dist/v0.12.6/node-v0.12.6-linux-x64.tar.gz | tar xvzf - -C /nodejs --strip-components=1 && \
     echo "export PATH=/nodejs/bin:\$PATH:" >> /etc/bash.bashrc
 
-# We need to use gcc-4.6 to build, set that as default.
+# We need to use gcc-4.7 to build, set that as default.
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.7 1
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 2
 RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.7 1
@@ -21,11 +21,11 @@ RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 2
 RUN update-alternatives --set gcc "/usr/bin/gcc-4.7"
 RUN update-alternatives --set g++ "/usr/bin/g++-4.7"
 
-# Setup environment and build that sucka!
-RUN useradd -m build && echo 'build:build' |chpasswd
-RUN chown -R build:build /home
-ENV SHELL /bin/bash
-ENV HOME /home/build
+# Setup build user
+#RUN useradd -m build && echo 'build:build' |chpasswd
+#RUN chown -R build:build /home
+#ENV SHELL /bin/bash
+#ENV HOME /home/build
 
 # Setup sshd
 RUN mkdir /var/run/sshd && \

@@ -10,7 +10,7 @@ RUN apt-get update -y && \
     apt-get install -y python python-dev openjdk-7-jdk wget libdbus-glib-1-dev libxt-dev unzip tree patch vim screen openssh-server subversion
 
 # Install latest nodejs
-RUN mkdir /nodejs && curl https://nodejs.org/dist/v0.12.6/node-v0.12.6-linux-x64.tar.gz | tar xvzf - -C /nodejs --strip-components=1 && \
+RUN mkdir /nodejs && curl https://nodejs.org/dist/v4.2.0/node-v4.2.0-linux-x64.tar.gz | tar xvzf - -C /nodejs --strip-components=1 && \
     echo "export PATH=/nodejs/bin:\$PATH:" >> /etc/bash.bashrc
 
 # We need to use gcc-4.7 to build, set that as default.

@@ -11,7 +11,7 @@ RUN apt-get update -y && \
 
 # Install latest nodejs
 RUN mkdir /nodejs && curl https://nodejs.org/dist/v4.2.0/node-v4.2.0-linux-x64.tar.gz | tar xvzf - -C /nodejs --strip-components=1 && \
-    echo "export PATH=/nodejs/bin:\$PATH:" >> /etc/bash.bashrc
+    echo "export PATH=/nodejs/bin:\$PATH:" >> /etc/bash.bashrc && /nodejs/bin/npm install -g bower
 
 # We need to use gcc-4.7 to build, set that as default.
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.7 1
